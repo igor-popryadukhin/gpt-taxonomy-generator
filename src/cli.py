@@ -86,8 +86,9 @@ def main(  # noqa: PLR0913 - many CLI options are expected
         "model_config",
     ]
     overrides = _collect_cli_options(ctx, cli_values, option_names)
-    if model_config is not None:
-        overrides["config"] = model_config
+    config_override = overrides.pop("model_config", None)
+    if config_override is not None:
+        overrides["config"] = config_override
 
     config = load_config(overrides)
     setup_logging(config.log_file, verbose=verbose)
